@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online file converter for documents, images, audio, video, and more. Convert between PDF, DOCX, JPG, MP3, MP4 and many other formats.">
+    <meta name="keywords" content="file converter, PDF to Word, image converter, audio converter, video converter, document converter">
+    <title>Universal File Converter | Convert Documents, Images, Audio & Video</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-color: #f8f9fa;
+            --dark-color: #202124;
+            --gray-color: #5f6368;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--gray-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--gray-color);
+            cursor: pointer;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 0 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .ad-banner {
+            background-color: #f1f3f4;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+        }
+
+        .converter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .converter-card {
+            flex: 1 1 300px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            transition: var(--transition);
+        }
+
+        .converter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .converter-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .converter-card i {
+            font-size: 1.5rem;
+        }
+
+        .converter-options {
+            margin-top: 20px;
+        }
+
+        .file-drop-area {
+            border: 2px dashed var(--gray-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-drop-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(66, 133, 244, 0.05);
+        }
+
+        .file-drop-area.active {
+            border-color: var(--primary-color);
+            background-color: rgba(66, 133, 244, 0.1);
+        }
+
+        .file-drop-area i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .file-drop-area p {
+            margin-bottom: 10px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #3367d6;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #4d5156;
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+
+        .btn-accent:hover {
+            background-color: #d33426;
+        }
+
+        .conversion-options {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        select, input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background-color: white;
+        }
+
+        input[type="range"] {
+            padding: 0;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 5px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+
+        .selected-file {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f1f3f4;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .selected-file i {
+            color: var(--secondary-color);
+        }
+
+        .progress-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--secondary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .status-text {
+            font-size: 0.9rem;
+            color: var(--gray-color);
+            text-align: center;
+        }
+
+        .result-container {
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .result-container a {
+            margin-top: 15px;
+        }
+
+        .features {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark-color);
+        }
+
+        .section-title p {
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--light-color);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .feature-card p {
+            color: var(--gray-color);
+        }
+
+        .how-it-works {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step {
+            flex: 1 1 200px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 auto 15px;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .step p {
+            color: var(--gray-color);
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: -30px;
+            width: 30px;
+            height: 2px;
+            background-color: var(--gray-color);
+            opacity: 0.3;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 0;
+            }
+
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: var(--box-shadow);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 99;
+            }
+
+            nav.active {
+                transform: translateY(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .converter-container {
+                flex-direction: column;
+            }
+
+            .step:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--dark-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode header,
+        body.dark-mode .converter-card,
+        body.dark-mode .feature-card {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+        }
+
+        body.dark-mode .hero h2,
+        body.dark-mode .feature-card h3,
+        body.dark-mode .step h3 {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .hero p,
+        body.dark-mode .feature-card p,
+        body.dark-mode .step p {
+            color: #b0b0b0;
+        }
+
+        body.dark-mode select,
+        body.dark-mode input[type="range"] {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        body.dark-mode .file-drop-area {
+            border-color: #444;
+            background-color: #2d2d2d;
+        }
+
+        body.dark-mode .selected-file {
+            background-color: #2d2d2d;
+        }
+
+        body.dark-mode .how-it-works {
+            background-color: #1a1a1a;
+        }
+
+        body.dark-mode footer {
+            background-color: #0d0d0d;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-exchange-alt"></i>
+                <h1>Universal Converter</h1>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#document-converter">Documents</a></li>
+                    <li><a href="#image-converter">Images</a></li>
+                    <li><a href="#audio-converter">Audio</a></li>
+                    <li><a href="#video-converter">Video</a></li>
+                    <li><a href="#other-converters">More</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Convert Files Between Any Format</h2>
+            <p>Free online file converter for documents, images, audio, video, and more. No installation required.</p>
+            
+            <div class="ad-banner">
+                <!-- Google AdSense Banner Ad -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+                <!-- Converter Top Banner -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                     data-ad-slot="YOUR_AD_SLOT_ID"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <section id="document-converter" class="converter-section">
+            <h2><i class="fas fa-file-alt"></i> Document Converter</h2>
+            <div class="converter-container">
+                <div class="converter-card">
+                    <h3><i class="fas fa-file-word"></i> Word Processing</h3>
+                    <div class="file-drop-area" id="wordDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop Word files here or click to browse</p>
+                        <input type="file" id="wordFileInput" class="file-input" accept=".doc,.docx,.odt,.rtf,.txt,.pdf">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="wordOutputFormat">Convert to:</label>
+                            <select id="wordOutputFormat">
+                                <option value="docx">DOCX (Microsoft Word)</option>
+                                <option value="pdf">PDF (Portable Document Format)</option>
+                                <option value="odt">ODT (OpenDocument Text)</option>
+                                <option value="rtf">RTF (Rich Text Format)</option>
+                                <option value="txt">TXT (Plain Text)</option>
+                                <option value="html">HTML (Web Page)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="wordQuality">Quality: <span id="wordQualityValue">High</span></label>
+                            <input type="range" id="wordQuality" min="1" max="3" value="3">
+                            <div class="range-labels">
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-accent" id="convertWordBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="wordSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="wordFileName"></span>
+                    </div>
+                    <div class="progress-container" id="wordProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="wordProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="wordStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="wordResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="wordDownloadBtn">Download File</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-file-pdf"></i> PDF Tools</h3>
+                    <div class="file-drop-area" id="pdfDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop PDF files here or click to browse</p>
+                        <input type="file" id="pdfFileInput" class="file-input" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="pdfOutputFormat">Convert to:</label>
+                            <select id="pdfOutputFormat">
+                                <option value="docx">DOCX (Microsoft Word)</option>
+                                <option value="pptx">PPTX (Microsoft PowerPoint)</option>
+                                <option value="xlsx">XLSX (Microsoft Excel)</option>
+                                <option value="jpg">JPG (Image)</option>
+                                <option value="png">PNG (Image)</option>
+                                <option value="txt">TXT (Text Extraction)</option>
+                                <option value="merge">Merge PDFs</option>
+                                <option value="split">Split PDF</option>
+                                <option value="compress">Compress PDF</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="pdfPagesGroup" style="display: none;">
+                            <label for="pdfPages">Pages to convert (e.g. 1,3-5):</label>
+                            <input type="text" id="pdfPages" placeholder="All pages">
+                        </div>
+                        <div class="form-group" id="pdfCompressionGroup">
+                            <label for="pdfCompression">Compression level: <span id="pdfCompressionValue">Medium</span></label>
+                            <input type="range" id="pdfCompression" min="1" max="3" value="2">
+                            <div class="range-labels">
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-accent" id="convertPdfBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="pdfSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="pdfFileName"></span>
+                    </div>
+                    <div class="progress-container" id="pdfProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="pdfProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="pdfStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="pdfResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="pdfDownloadBtn">Download File</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-file-excel"></i> Spreadsheets</h3>
+                    <div class="file-drop-area" id="spreadsheetDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop Excel files here or click to browse</p>
+                        <input type="file" id="spreadsheetFileInput" class="file-input" accept=".xls,.xlsx,.csv,.ods,.pdf">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="spreadsheetOutputFormat">Convert to:</label>
+                            <select id="spreadsheetOutputFormat">
+                                <option value="xlsx">XLSX (Microsoft Excel)</option>
+                                <option value="xls">XLS (Excel 97-2003)</option>
+                                <option value="pdf">PDF (Portable Document Format)</option>
+                                <option value="csv">CSV (Comma Separated Values)</option>
+                                <option value="ods">ODS (OpenDocument Spreadsheet)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="spreadsheetQuality">Quality: <span id="spreadsheetQualityValue">High</span></label>
+                            <input type="range" id="spreadsheetQuality" min="1" max="3" value="3">
+                            <div class="range-labels">
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-accent" id="convertSpreadsheetBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="spreadsheetSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="spreadsheetFileName"></span>
+                    </div>
+                    <div class="progress-container" id="spreadsheetProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="spreadsheetProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="spreadsheetStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="spreadsheetResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="spreadsheetDownloadBtn">Download File</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ad-banner">
+                <!-- Google AdSense Rectangle Ad -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+                <!-- Converter Middle Rectangle -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                     data-ad-slot="YOUR_AD_SLOT_ID"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+
+        <section id="image-converter" class="converter-section">
+            <h2><i class="fas fa-image"></i> Image Converter</h2>
+            <div class="converter-container">
+                <div class="converter-card">
+                    <h3><i class="fas fa-file-image"></i> Image Conversion</h3>
+                    <div class="file-drop-area" id="imageDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop images here or click to browse</p>
+                        <input type="file" id="imageFileInput" class="file-input" accept="image/*">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="imageOutputFormat">Convert to:</label>
+                            <select id="imageOutputFormat">
+                                <option value="jpg">JPG (JPEG Image)</option>
+                                <option value="png">PNG (Portable Network Graphics)</option>
+                                <option value="webp">WEBP (Web Picture Format)</option>
+                                <option value="gif">GIF (Graphics Interchange Format)</option>
+                                <option value="bmp">BMP (Bitmap Image)</option>
+                                <option value="tiff">TIFF (Tagged Image File)</option>
+                                <option value="svg">SVG (Scalable Vector Graphics)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageQuality">Quality: <span id="imageQualityValue">85%</span></label>
+                            <input type="range" id="imageQuality" min="1" max="100" value="85">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageResize">Resize:</label>
+                            <select id="imageResize">
+                                <option value="original">Keep original size</option>
+                                <option value="custom">Custom size</option>
+                                <option value="hd">HD (1280x720)</option>
+                                <option value="fullhd">Full HD (1920x1080)</option>
+                                <option value="4k">4K (3840x2160)</option>
+                                <option value="instagram">Instagram (1080x1080)</option>
+                                <option value="facebook">Facebook (1200x630)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="customSizeGroup" style="display: none;">
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <label for="imageWidth">Width (px):</label>
+                                    <input type="number" id="imageWidth" placeholder="Width" class="file-input">
+                                </div>
+                                <div style="flex: 1;">
+                                    <label for="imageHeight">Height (px):</label>
+                                    <input type="number" id="imageHeight" placeholder="Height" class="file-input">
+                                </div>
+                            </div>
+                            <div style="margin-top: 5px;">
+                                <input type="checkbox" id="maintainAspect" checked>
+                                <label for="maintainAspect">Maintain aspect ratio</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-accent" id="convertImageBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="imageSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="imageFileName"></span>
+                    </div>
+                    <div class="progress-container" id="imageProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="imageProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="imageStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="imageResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="imageDownloadBtn">Download File</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-camera"></i> Special Image Formats</h3>
+                    <div class="file-drop-area" id="specialImageDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop HEIC/RAW images here or click to browse</p>
+                        <input type="file" id="specialImageFileInput" class="file-input" accept=".heic,.heif,.cr2,.nef,.arw,.dng">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="specialImageOutputFormat">Convert to:</label>
+                            <select id="specialImageOutputFormat">
+                                <option value="jpg">JPG (JPEG Image)</option>
+                                <option value="png">PNG (Portable Network Graphics)</option>
+                                <option value="webp">WEBP (Web Picture Format)</option>
+                                <option value="tiff">TIFF (Tagged Image File)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="specialImageQuality">Quality: <span id="specialImageQualityValue">90%</span></label>
+                            <input type="range" id="specialImageQuality" min="1" max="100" value="90">
+                        </div>
+                        <div class="form-group">
+                            <label for="specialImagePreserve">Preserve:</label>
+                            <select id="specialImagePreserve">
+                                <option value="none">No metadata</option>
+                                <option value="basic">Basic metadata</option>
+                                <option value="all">All metadata (where possible)</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-accent" id="convertSpecialImageBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="specialImageSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="specialImageFileName"></span>
+                    </div>
+                    <div class="progress-container" id="specialImageProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="specialImageProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="specialImageStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="specialImageResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="specialImageDownloadBtn">Download File</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-file-pdf"></i> PDF to Images</h3>
+                    <div class="file-drop-area" id="pdfToImageDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop PDF files here or click to browse</p>
+                        <input type="file" id="pdfToImageFileInput" class="file-input" accept=".pdf">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="pdfToImageOutputFormat">Convert to:</label>
+                            <select id="pdfToImageOutputFormat">
+                                <option value="jpg">JPG (JPEG Image)</option>
+                                <option value="png">PNG (Portable Network Graphics)</option>
+                                <option value="webp">WEBP (Web Picture Format)</option>
+                                <option value="tiff">TIFF (Tagged Image File)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pdfToImagePages">Pages to convert:</label>
+                            <select id="pdfToImagePages">
+                                <option value="all">All pages</option>
+                                <option value="first">First page only</option>
+                                <option value="custom">Custom range</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="pdfToImageCustomPages" style="display: none;">
+                            <label for="pdfToImagePageRange">Page range (e.g. 1,3-5):</label>
+                            <input type="text" id="pdfToImagePageRange" placeholder="All pages">
+                        </div>
+                        <div class="form-group">
+                            <label for="pdfToImageQuality">Quality: <span id="pdfToImageQualityValue">85%</span></label>
+                            <input type="range" id="pdfToImageQuality" min="1" max="100" value="85">
+                        </div>
+                        <div class="form-group">
+                            <label for="pdfToImageOutput">Output as:</label>
+                            <select id="pdfToImageOutput">
+                                <option value="single">Single images (ZIP)</option>
+                                <option value="combined">Combined image (vertical)</option>
+                                <option value="combined-h">Combined image (horizontal)</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-accent" id="convertPdfToImageBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="pdfToImageSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="pdfToImageFileName"></span>
+                    </div>
+                    <div class="progress-container" id="pdfToImageProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="pdfToImageProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="pdfToImageStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="pdfToImageResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="pdfToImageDownloadBtn">Download File</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="audio-converter" class="converter-section">
+            <h2><i class="fas fa-music"></i> Audio Converter</h2>
+            <div class="converter-container">
+                <div class="converter-card">
+                    <h3><i class="fas fa-file-audio"></i> Audio Conversion</h3>
+                    <div class="file-drop-area" id="audioDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop audio files here or click to browse</p>
+                        <input type="file" id="audioFileInput" class="file-input" accept="audio/*">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="audioOutputFormat">Convert to:</label>
+                            <select id="audioOutputFormat">
+                                <option value="mp3">MP3 (MPEG Audio Layer III)</option>
+                                <option value="wav">WAV (Waveform Audio)</option>
+                                <option value="ogg">OGG (Ogg Vorbis)</option>
+                                <option value="flac">FLAC (Free Lossless Audio Codec)</option>
+                                <option value="aac">AAC (Advanced Audio Coding)</option>
+                                <option value="m4a">M4A (MPEG-4 Audio)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="audioQuality">Quality: <span id="audioQualityValue">High</span></label>
+                            <input type="range" id="audioQuality" min="1" max="3" value="3">
+                            <div class="range-labels">
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="audioBitrate">Bitrate:</label>
+                            <select id="audioBitrate">
+                                <option value="64">64 kbps</option>
+                                <option value="128">128 kbps</option>
+                                <option value="192" selected>192 kbps</option>
+                                <option value="256">256 kbps</option>
+                                <option value="320">320 kbps</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="audioTrim">Trim audio:</label>
+                            <select id="audioTrim">
+                                <option value="no">No trimming</option>
+                                <option value="custom">Custom range</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="audioTrimRange" style="display: none;">
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <label for="audioStart">Start (seconds):</label>
+                                    <input type="number" id="audioStart" placeholder="0" min="0" class="file-input">
+                                </div>
+                                <div style="flex: 1;">
+                                    <label for="audioEnd">End (seconds):</label>
+                                    <input type="number" id="audioEnd" placeholder="End" class="file-input">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-accent" id="convertAudioBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="audioSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="audioFileName"></span>
+                    </div>
+                    <div class="progress-container" id="audioProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="audioProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="audioStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="audioResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="audioDownloadBtn">Download File</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-microphone"></i> Speech to Text</h3>
+                    <div class="file-drop-area" id="speechDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop audio files here or click to browse</p>
+                        <input type="file" id="speechFileInput" class="file-input" accept="audio/*">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="speechLanguage">Language:</label>
+                            <select id="speechLanguage">
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                                <option value="it">Italian</option>
+                                <option value="pt">Portuguese</option>
+                                <option value="ru">Russian</option>
+                                <option value="zh">Chinese</option>
+                                <option value="ja">Japanese</option>
+                                <option value="hi">Hindi</option>
+                                <option value="ar">Arabic</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="speechFormat">Output format:</label>
+                            <select id="speechFormat">
+                                <option value="txt">Plain Text (TXT)</option>
+                                <option value="docx">Microsoft Word (DOCX)</option>
+                                <option value="pdf">PDF Document</option>
+                                <option value="srt">Subtitle (SRT)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="speechSpeaker">Speaker identification:</label>
+                            <select id="speechSpeaker">
+                                <option value="no">No speaker identification</option>
+                                <option value="yes">Identify different speakers</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-accent" id="convertSpeechBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="speechSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="speechFileName"></span>
+                    </div>
+                    <div class="progress-container" id="speechProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="speechProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="speechStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="speechResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="speechDownloadBtn">Download File</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-cut"></i> Audio Editing</h3>
+                    <div class="file-drop-area" id="audioEditDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop audio files here or click to browse</p>
+                        <input type="file" id="audioEditFileInput" class="file-input" accept="audio/*">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="audioEditAction">Action:</label>
+                            <select id="audioEditAction">
+                                <option value="trim">Trim audio</option>
+                                <option value="merge">Merge multiple files</option>
+                                <option value="normalize">Normalize volume</option>
+                                <option value="fade">Add fade in/out</option>
+                                <option value="reverse">Reverse audio</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="audioEditTrimOptions">
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <label for="audioEditStart">Start (seconds):</label>
+                                    <input type="number" id="audioEditStart" placeholder="0" min="0" class="file-input">
+                                </div>
+                                <div style="flex: 1;">
+                                    <label for="audioEditEnd">End (seconds):</label>
+                                    <input type="number" id="audioEditEnd" placeholder="End" class="file-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="audioEditFadeOptions" style="display: none;">
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <label for="audioEditFadeIn">Fade in (seconds):</label>
+                                    <input type="number" id="audioEditFadeIn" placeholder="0" min="0" class="file-input">
+                                </div>
+                                <div style="flex: 1;">
+                                    <label for="audioEditFadeOut">Fade out (seconds):</label>
+                                    <input type="number" id="audioEditFadeOut" placeholder="0" min="0" class="file-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="audioEditOutputFormatGroup">
+                            <label for="audioEditOutputFormat">Output format:</label>
+                            <select id="audioEditOutputFormat">
+                                <option value="original">Keep original format</option>
+                                <option value="mp3">MP3</option>
+                                <option value="wav">WAV</option>
+                                <option value="ogg">OGG</option>
+                                <option value="flac">FLAC</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-accent" id="convertAudioEditBtn">Process Now</button>
+                    </div>
+                    <div class="selected-file" id="audioEditSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="audioEditFileName"></span>
+                    </div>
+                    <div class="progress-container" id="audioEditProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="audioEditProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="audioEditStatus">Preparing for processing...</p>
+                    </div>
+                    <div class="result-container" id="audioEditResult">
+                        <p>Your file has been processed successfully!</p>
+                        <a href="#" class="btn" id="audioEditDownloadBtn">Download File</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="ad-banner">
+            <!-- Google AdSense Banner Ad -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"></script>
+            <!-- Converter Bottom Banner -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section id="video-converter" class="converter-section">
+            <h2><i class="fas fa-video"></i> Video Converter</h2>
+            <div class="converter-container">
+                <div class="converter-card">
+                    <h3><i class="fas fa-file-video"></i> Video Conversion</h3>
+                    <div class="file-drop-area" id="videoDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop video files here or click to browse</p>
+                        <input type="file" id="videoFileInput" class="file-input" accept="video/*">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="videoOutputFormat">Convert to:</label>
+                            <select id="videoOutputFormat">
+                                <option value="mp4">MP4 (MPEG-4)</option>
+                                <option value="avi">AVI (Audio Video Interleave)</option>
+                                <option value="mov">MOV (QuickTime Movie)</option>
+                                <option value="mkv">MKV (Matroska Video)</option>
+                                <option value="wmv">WMV (Windows Media Video)</option>
+                                <option value="gif">GIF (Animated GIF)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoQuality">Quality: <span id="videoQualityValue">High</span></label>
+                            <input type="range" id="videoQuality" min="1" max="3" value="3">
+                            <div class="range-labels">
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoResolution">Resolution:</label>
+                            <select id="videoResolution">
+                                <option value="original">Original resolution</option>
+                                <option value="480p">480p (SD)</option>
+                                <option value="720p">720p (HD)</option>
+                                <option value="1080p">1080p (Full HD)</option>
+                                <option value="4k">4K (Ultra HD)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoTrim">Trim video:</label>
+                            <select id="videoTrim">
+                                <option value="no">No trimming</option>
+                                <option value="custom">Custom range</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="videoTrimRange" style="display: none;">
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <label for="videoStart">Start (seconds):</label>
+                                    <input type="number" id="videoStart" placeholder="0" min="0" class="file-input">
+                                </div>
+                                <div style="flex: 1;">
+                                    <label for="videoEnd">End (seconds):</label>
+                                    <input type="number" id="videoEnd" placeholder="End" class="file-input">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-accent" id="convertVideoBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="videoSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="videoFileName"></span>
+                    </div>
+                    <div class="progress-container" id="videoProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="videoProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="videoStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="videoResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="videoDownloadBtn">Download File</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-headphones"></i> Extract Audio</h3>
+                    <div class="file-drop-area" id="videoAudioDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop video files here or click to browse</p>
+                        <input type="file" id="videoAudioFileInput" class="file-input" accept="video/*">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="videoAudioOutputFormat">Convert to:</label>
+                            <select id="videoAudioOutputFormat">
+                                <option value="mp3">MP3 (MPEG Audio Layer III)</option>
+                                <option value="wav">WAV (Waveform Audio)</option>
+                                <option value="ogg">OGG (Ogg Vorbis)</option>
+                                <option value="flac">FLAC (Free Lossless Audio Codec)</option>
+                                <option value="aac">AAC (Advanced Audio Coding)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoAudioQuality">Quality: <span id="videoAudioQualityValue">High</span></label>
+                            <input type="range" id="videoAudioQuality" min="1" max="3" value="3">
+                            <div class="range-labels">
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoAudioBitrate">Bitrate:</label>
+                            <select id="videoAudioBitrate">
+                                <option value="128">128 kbps</option>
+                                <option value="192" selected>192 kbps</option>
+                                <option value="256">256 kbps</option>
+                                <option value="320">320 kbps</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoAudioTrim">Trim audio:</label>
+                            <select id="videoAudioTrim">
+                                <option value="no">No trimming</option>
+                                <option value="custom">Custom range</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="videoAudioTrimRange" style="display: none;">
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <label for="videoAudioStart">Start (seconds):</label>
+                                    <input type="number" id="videoAudioStart" placeholder="0" min="0" class="file-input">
+                                </div>
+                                <div style="flex: 1;">
+                                    <label for="videoAudioEnd">End (seconds):</label>
+                                    <input type="number" id="videoAudioEnd" placeholder="End" class="file-input">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-accent" id="convertVideoAudioBtn">Extract Audio</button>
+                    </div>
+                    <div class="selected-file" id="videoAudioSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="videoAudioFileName"></span>
+                    </div>
+                    <div class="progress-container" id="videoAudioProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="videoAudioProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="videoAudioStatus">Preparing for extraction...</p>
+                    </div>
+                    <div class="result-container" id="videoAudioResult">
+                        <p>Audio has been extracted successfully!</p>
+                        <a href="#" class="btn" id="videoAudioDownloadBtn">Download Audio</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-images"></i> Extract Frames</h3>
+                    <div class="file-drop-area" id="videoFramesDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop video files here or click to browse</p>
+                        <input type="file" id="videoFramesFileInput" class="file-input" accept="video/*">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="videoFramesOutputFormat">Convert to:</label>
+                            <select id="videoFramesOutputFormat">
+                                <option value="jpg">JPG (JPEG Image)</option>
+                                <option value="png">PNG (Portable Network Graphics)</option>
+                                <option value="webp">WEBP (Web Picture Format)</option>
+                                <option value="gif">GIF (Animated GIF)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoFramesQuality">Quality: <span id="videoFramesQualityValue">85%</span></label>
+                            <input type="range" id="videoFramesQuality" min="1" max="100" value="85">
+                        </div>
+                        <div class="form-group">
+                            <label for="videoFramesRate">Frame rate:</label>
+                            <select id="videoFramesRate">
+                                <option value="1">1 frame per second</option>
+                                <option value="5">5 frames per second</option>
+                                <option value="10">10 frames per second</option>
+                                <option value="24">24 frames per second (original)</option>
+                                <option value="custom">Custom frame rate</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="videoFramesCustomRate" style="display: none;">
+                            <label for="videoFramesCustomRateValue">Custom frame rate (frames per second):</label>
+                            <input type="number" id="videoFramesCustomRateValue" placeholder="e.g. 30" min="1" class="file-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="videoFramesRange">Extract frames from:</label>
+                            <select id="videoFramesRange">
+                                <option value="full">Full video</option>
+                                <option value="custom">Custom range</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="videoFramesCustomRange" style="display: none;">
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <label for="videoFramesStart">Start (seconds):</label>
+                                    <input type="number" id="videoFramesStart" placeholder="0" min="0" class="file-input">
+                                </div>
+                                <div style="flex: 1;">
+                                    <label for="videoFramesEnd">End (seconds):</label>
+                                    <input type="number" id="videoFramesEnd" placeholder="End" class="file-input">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-accent" id="convertVideoFramesBtn">Extract Frames</button>
+                    </div>
+                    <div class="selected-file" id="videoFramesSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="videoFramesFileName"></span>
+                    </div>
+                    <div class="progress-container" id="videoFramesProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="videoFramesProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="videoFramesStatus">Preparing for extraction...</p>
+                    </div>
+                    <div class="result-container" id="videoFramesResult">
+                        <p>Frames have been extracted successfully!</p>
+                        <a href="#" class="btn" id="videoFramesDownloadBtn">Download Frames (ZIP)</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="other-converters" class="converter-section">
+            <h2><i class="fas fa-cogs"></i> Other Converters</h2>
+            <div class="converter-container">
+                <div class="converter-card">
+                    <h3><i class="fas fa-file-archive"></i> Archive Tools</h3>
+                    <div class="file-drop-area" id="archiveDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop archive files here or click to browse</p>
+                        <input type="file" id="archiveFileInput" class="file-input" accept=".zip,.rar,.7z,.tar,.gz">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="archiveAction">Action:</label>
+                            <select id="archiveAction">
+                                <option value="extract">Extract files</option>
+                                <option value="convert">Convert format</option>
+                                <option value="compress">Compress files</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="archiveConvertOptions" style="display: none;">
+                            <label for="archiveOutputFormat">Convert to:</label>
+                            <select id="archiveOutputFormat">
+                                <option value="zip">ZIP</option>
+                                <option value="rar">RAR</option>
+                                <option value="7z">7Z</option>
+                                <option value="tar.gz">TAR.GZ</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="archiveCompressOptions" style="display: none;">
+                            <label for="archiveCompressionLevel">Compression level:</label>
+                            <select id="archiveCompressionLevel">
+                                <option value="store">Store (no compression)</option>
+                                <option value="fast">Fast</option>
+                                <option value="normal" selected>Normal</option>
+                                <option value="maximum">Maximum</option>
+                                <option value="ultra">Ultra</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="archivePasswordGroup">
+                            <label for="archivePassword">Password (optional):</label>
+                            <input type="password" id="archivePassword" placeholder="Enter password" class="file-input">
+                        </div>
+                        <button class="btn btn-accent" id="processArchiveBtn">Process Now</button>
+                    </div>
+                    <div class="selected-file" id="archiveSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="archiveFileName"></span>
+                    </div>
+                    <div class="progress-container" id="archiveProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="archiveProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="archiveStatus">Preparing for processing...</p>
+                    </div>
+                    <div class="result-container" id="archiveResult">
+                        <p>Your file has been processed successfully!</p>
+                        <a href="#" class="btn" id="archiveDownloadBtn">Download File</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-file-code"></i> Data Formats</h3>
+                    <div class="file-drop-area" id="dataDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop data files here or click to browse</p>
+                        <input type="file" id="dataFileInput" class="file-input" accept=".csv,.json,.xml,.txt">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="dataOutputFormat">Convert to:</label>
+                            <select id="dataOutputFormat">
+                                <option value="json">JSON (JavaScript Object Notation)</option>
+                                <option value="csv">CSV (Comma Separated Values)</option>
+                                <option value="xml">XML (Extensible Markup Language)</option>
+                                <option value="yaml">YAML (YAML Ain't Markup Language)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dataDelimiter" id="dataDelimiterLabel">Delimiter:</label>
+                            <select id="dataDelimiter">
+                                <option value="," selected>Comma ( , )</option>
+                                <option value=";">Semicolon ( ; )</option>
+                                <option value="\t">Tab ( \t )</option>
+                                <option value="|">Pipe ( | )</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="dataCustomDelimiter" style="display: none;">
+                            <label for="dataCustomDelimiterValue">Custom delimiter:</label>
+                            <input type="text" id="dataCustomDelimiterValue" maxlength="1" class="file-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="dataHeader">First row contains headers:</label>
+                            <select id="dataHeader">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-accent" id="convertDataBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="dataSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="dataFileName"></span>
+                    </div>
+                    <div class="progress-container" id="dataProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="dataProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="dataStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="dataResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="dataDownloadBtn">Download File</a>
+                    </div>
+                </div>
+
+                <div class="converter-card">
+                    <h3><i class="fas fa-book"></i> eBook Converter</h3>
+                    <div class="file-drop-area" id="ebookDropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop eBook files here or click to browse</p>
+                        <input type="file" id="ebookFileInput" class="file-input" accept=".epub,.mobi,.azw3,.pdf,.txt">
+                        <button class="btn">Select Files</button>
+                    </div>
+                    <div class="conversion-options">
+                        <div class="form-group">
+                            <label for="ebookOutputFormat">Convert to:</label>
+                            <select id="ebookOutputFormat">
+                                <option value="epub">EPUB (Electronic Publication)</option>
+                                <option value="mobi">MOBI (Mobipocket)</option>
+                                <option value="azw3">AZW3 (Amazon Kindle)</option>
+                                <option value="pdf">PDF (Portable Document Format)</option>
+                                <option value="txt">TXT (Plain Text)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ebookQuality">Quality: <span id="ebookQualityValue">High</span></label>
+                            <input type="range" id="ebookQuality" min="1" max="3" value="3">
+                            <div class="range-labels">
+                                <span>Low</span>
+                                <span>Medium</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ebookMetadata">Preserve metadata:</label>
+                            <select id="ebookMetadata">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ebookFontSize">Font size:</label>
+                            <select id="ebookFontSize">
+                                <option value="small">Small</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="large">Large</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="ebookCustomFontSize" style="display: none;">
+                            <label for="ebookCustomFontSizeValue">Custom font size (px):</label>
+                            <input type="number" id="ebookCustomFontSizeValue" min="8" max="72" value="14" class="file-input">
+                        </div>
+                        <button class="btn btn-accent" id="convertEbookBtn">Convert Now</button>
+                    </div>
+                    <div class="selected-file" id="ebookSelectedFile" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="ebookFileName"></span>
+                    </div>
+                    <div class="progress-container" id="ebookProgress">
+                        <div class="progress-bar">
+                            <div class="progress" id="ebookProgressBar"></div>
+                        </div>
+                        <p class="status-text" id="ebookStatus">Preparing for conversion...</p>
+                    </div>
+                    <div class="result-container" id="ebookResult">
+                        <p>Your file has been converted successfully!</p>
+                        <a href="#" class="btn" id="ebookDownloadBtn">Download File</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Our File Converter?</h2>
+                <p>Our online file converter offers a range of benefits that make it the best choice for all your file conversion needs.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Fast Conversion</h3>
+                    <p>Convert your files in seconds with our high-speed processing technology.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>Secure Processing</h3>
+                    <p>Your files are processed securely and deleted automatically after conversion.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-desktop"></i>
+                    <h3>No Installation</h3>
+                    <p>Works directly in your browser - no software installation required.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-infinity"></i>
+                    <h3>Unlimited Conversions</h3>
+                    <p>Convert as many files as you need without any restrictions.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-th-large"></i>
+                    <h3>Wide Format Support</h3>
+                    <p>Supports over 200 file formats for documents, images, audio, and video.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cloud"></i>
+                    <h3>Cloud Integration</h3>
+                    <p>Connect directly to your Google Drive, Dropbox, or OneDrive account.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Converting your files is quick and easy with just three simple steps.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Upload File</h3>
+                    <p>Drag & drop your file or click to browse your device.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Set Options</h3>
+                    <p>Choose output format and adjust conversion settings.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Download Result</h3>
+                    <p>Wait for processing and download your converted file.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Universal Converter</h3>
+                    <p>The ultimate online file conversion tool for all your document, image, audio, and video needs.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#document-converter">Document Converter</a></li>
+                        <li><a href="#image-converter">Image Converter</a></li>
+                        <li><a href="#audio-converter">Audio Converter</a></li>
+                        <li><a href="#video-converter">Video Converter</a></li>
+                        <li><a href="#other-converters">Other Converters</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Universal Converter. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            darkModeToggle.innerHTML = document.body.classList.contains('dark-mode') 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+            
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        // File drop area functionality
+        function setupFileDrop(dropAreaId, fileInputId, fileNameDisplayId, selectedFileDisplayId) {
+            const dropArea = document.getElementById(dropAreaId);
+            const fileInput = document.getElementById(fileInputId);
+            const fileNameDisplay = document.getElementById(fileNameDisplayId);
+            const selectedFileDisplay = document.getElementById(selectedFileDisplayId);
+
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+
+            // Highlight drop area when item is dragged over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            // Handle dropped files
+            dropArea.addEventListener('drop', handleDrop, false);
+
+            // Handle click to select files
+            dropArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            // Handle file selection
+            fileInput.addEventListener('change', handleFiles, false);
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            function highlight() {
+                dropArea.classList.add('active');
+            }
+
+            function unhighlight() {
+                dropArea.classList.remove('active');
+            }
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles({ target: { files } });
+            }
+
+            function handleFiles(e) {
+                const files = e.target.files;
+                if (files.length) {
+                    fileNameDisplay.textContent = files[0].name;
+                    selectedFileDisplay.style.display = 'flex';
+                }
+            }
+        }
+
+        // Setup all file drop areas
+        setupFileDrop('wordDropArea', 'wordFileInput', 'wordFileName', 'wordSelectedFile');
+        setupFileDrop('pdfDropArea', 'pdfFileInput', 'pdfFileName', 'pdfSelectedFile');
+        setupFileDrop('spreadsheetDropArea', 'spreadsheetFileInput', 'spreadsheetFileName', 'spreadsheetSelectedFile');
+        setupFileDrop('imageDropArea', 'imageFileInput', 'imageFileName', 'imageSelectedFile');
+        setupFileDrop('specialImageDropArea', 'specialImageFileInput', 'specialImageFileName', 'specialImageSelectedFile');
+        setupFileDrop('pdfToImageDropArea', 'pdfToImageFileInput', 'pdfToImageFileName', 'pdfToImageSelectedFile');
+        setupFileDrop('audioDropArea', 'audioFileInput', 'audioFileName', 'audioSelectedFile');
+        setupFileDrop('speechDropArea', 'speechFileInput', 'speechFileName', 'speechSelectedFile');
+        setupFileDrop('audioEditDropArea', 'audioEditFileInput', 'audioEditFileName', 'audioEditSelectedFile');
+        setupFileDrop('videoDropArea', 'videoFileInput', 'videoFileName', 'videoSelectedFile');
+        setupFileDrop('videoAudioDropArea', 'videoAudioFileInput', 'videoAudioFileName', 'videoAudioSelectedFile');
+        setupFileDrop('videoFramesDropArea', 'videoFramesFileInput', 'videoFramesFileName', 'videoFramesSelectedFile');
+        setupFileDrop('archiveDropArea', 'archiveFileInput', 'archiveFileName', 'archiveSelectedFile');
+        setupFileDrop('dataDropArea', 'dataFileInput', 'dataFileName', 'dataSelectedFile');
+        setupFileDrop('ebookDropArea', 'ebookFileInput', 'ebookFileName', 'ebookSelectedFile');
+
+        // Dynamic option toggles
+        document.getElementById('pdfOutputFormat').addEventListener('change', function() {
+            const pagesGroup = document.getElementById('pdfPagesGroup');
+            const compressionGroup = document.getElementById('pdfCompressionGroup');
+            
+            if (this.value === 'jpg' || this.value === 'png') {
+                pagesGroup.style.display = 'block';
+                compressionGroup.style.display = 'none';
+            } else if (this.value === 'compress') {
+                pagesGroup.style.display = 'none';
+                compressionGroup.style.display = 'block';
+            } else {
+                pagesGroup.style.display = 'none';
+                compressionGroup.style.display = 'block';
+            }
+        });
+
+        document.getElementById('imageResize').addEventListener('change', function() {
+            const customSizeGroup = document.getElementById('customSizeGroup');
+            customSizeGroup.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+
+        document.getElementById('audioTrim').addEventListener('change', function() {
+            const audioTrimRange = document.getElementById('audioTrimRange');
+            audioTrimRange.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+
+        document.getElementById('videoTrim').addEventListener('change', function() {
+            const videoTrimRange = document.getElementById('videoTrimRange');
+            videoTrimRange.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+
+        document.getElementById('videoAudioTrim').addEventListener('change', function() {
+            const videoAudioTrimRange = document.getElementById('videoAudioTrimRange');
+            videoAudioTrimRange.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+
+        document.getElementById('pdfToImagePages').addEventListener('change', function() {
+            const pdfToImageCustomPages = document.getElementById('pdfToImageCustomPages');
+            pdfToImageCustomPages.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+
+        document.getElementById('videoFramesRate').addEventListener('change', function() {
+            const videoFramesCustomRate = document.getElementById('videoFramesCustomRate');
+            videoFramesCustomRate.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+
+        document.getElementById('videoFramesRange').addEventListener('change', function() {
+            const videoFramesCustomRange = document.getElementById('videoFramesCustomRange');
+            videoFramesCustomRange.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+
+        document.getElementById('archiveAction').addEventListener('change', function() {
+            const archiveConvertOptions = document.getElementById('archiveConvertOptions');
+            const archiveCompressOptions = document.getElementById('archiveCompressOptions');
+            
+            if (this.value === 'convert') {
+                archiveConvertOptions.style.display = 'block';
+                archiveCompressOptions.style.display = 'none';
+            } else if (this.value === 'compress') {
+                archiveConvertOptions.style.display = 'none';
+                archiveCompressOptions.style.display = 'block';
+            } else {
+                archiveConvertOptions.style.display = 'none';
+                archiveCompressOptions.style.display = 'none';
+            }
+        });
+
+        document.getElementById('dataOutputFormat').addEventListener('change', function() {
+            const dataDelimiterLabel = document.getElementById('dataDelimiterLabel');
+            if (this.value === 'csv') {
+                dataDelimiterLabel.textContent = 'Delimiter:';
+                document.getElementById('dataDelimiter').style.display = 'block';
+                document.getElementById('dataHeader').style.display = 'block';
+            } else if (this.value === 'json' || this.value === 'xml' || this.value === 'yaml') {
+                dataDelimiterLabel.textContent = 'Options:';
+                document.getElementById('dataDelimiter').style.display = 'none';
+                document.getElementById('dataHeader').style.display = 'block';
+            }
+        });
+
+        document.getElementById('dataDelimiter').addEventListener('change', function() {
+            const dataCustomDelimiter = document.getElementById('dataCustomDelimiter');
+            dataCustomDelimiter.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+
+        document.getElementById('audioEditAction').addEventListener('change', function() {
+            const audioEditTrimOptions = document.getElementById('audioEditTrimOptions');
+            const audioEditFadeOptions = document.getElementById('audioEditFadeOptions');
+            
+            if (this.value === 'trim') {
+                audioEditTrimOptions.style.display = 'block';
+                audioEditFadeOptions.style.display = 'none';
+            } else if (this.value === 'fade') {
+                audioEditTrimOptions.style.display = 'none';
+                audioEditFadeOptions.style.display = 'block';
+            } else {
+                audioEditTrimOptions.style.display = 'none';
+                audioEditFadeOptions.style.display = 'none';
+            }
+        });
+
+        document.getElementById('ebookFontSize').addEventListener('change', function() {
+            const ebookCustomFontSize = document.getElementById('ebookCustomFontSize');
+            ebookCustomFontSize.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+
+        // Range value displays
+        document.getElementById('wordQuality').addEventListener('input', function() {
+            const values = ['Low', 'Medium', 'High'];
+            document.getElementById('wordQualityValue').textContent = values[this.value - 1];
+        });
+
+        document.getElementById('pdfCompression').addEventListener('input', function() {
+            const values = ['Low', 'Medium', 'High'];
+            document.getElementById('pdfCompressionValue').textContent = values[this.value - 1];
+        });
+
+        document.getElementById('spreadsheetQuality').addEventListener('input', function() {
+            const values = ['Low', 'Medium', 'High'];
+            document.getElementById('spreadsheetQualityValue').textContent = values[this.value - 1];
+        });
+
+        document.getElementById('imageQuality').addEventListener('input', function() {
+            document.getElementById('imageQualityValue').textContent = `${this.value}%`;
+        });
+
+        document.getElementById('specialImageQuality').addEventListener('input', function() {
+            document.getElementById('specialImageQualityValue').textContent = `${this.value}%`;
+        });
+
+        document.getElementById('pdfToImageQuality').addEventListener('input', function() {
+            document.getElementById('pdfToImageQualityValue').textContent = `${this.value}%`;
+        });
+
+        document.getElementById('audioQuality').addEventListener('input', function() {
+            const values = ['Low', 'Medium', 'High'];
+            document.getElementById('audioQualityValue').textContent = values[this.value - 1];
+        });
+
+        document.getElementById('videoQuality').addEventListener('input', function() {
+            const values = ['Low', 'Medium', 'High'];
+            document.getElementById('videoQualityValue').textContent = values[this.value - 1];
+        });
+
+        document.getElementById('videoAudioQuality').addEventListener('input', function() {
+            const values = ['Low', 'Medium', 'High'];
+            document.getElementById('videoAudioQualityValue').textContent = values[this.value - 1];
+        });
+
+        document.getElementById('videoFramesQuality').addEventListener('input', function() {
+            document.getElementById('videoFramesQualityValue').textContent = `${this.value}%`;
+        });
+
+        document.getElementById('ebookQuality').addEventListener('input', function() {
+            const values = ['Low', 'Medium', 'High'];
+            document.getElementById('ebookQualityValue').textContent = values[this.value - 1];
+        });
+
+        // Simulate conversion process for demo purposes
+        function simulateConversion(convertBtnId, progressId, progressBarId, statusId, resultId) {
+            const convertBtn = document.getElementById(convertBtnId);
+            const progress = document.getElementById(progressId);
+            const progressBar = document.getElementById(progressBarId);
+            const status = document.getElementById(statusId);
+            const result = document.getElementById(resultId);
+
+            convertBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Show progress bar
+                progress.style.display = 'block';
+                
+                // Simulate conversion steps
+                let progressValue = 0;
+                status.textContent = 'Uploading file...';
+                
+                const interval = setInterval(() => {
+                    progressValue += Math.random() * 10;
+                    if (progressValue > 100) progressValue = 100;
+                    progressBar.style.width = `${progressValue}%`;
+                    
+                    if (progressValue < 30) {
+                        status.textContent = 'Uploading file...';
+                    } else if (progressValue < 70) {
+                        status.textContent = 'Processing file...';
+                    } else {
+                        status.textContent = 'Finalizing conversion...';
+                    }
+                    
+                    if (progressValue === 100) {
+                        clearInterval(interval);
+                        progress.style.display = 'none';
+                        result.style.display = 'block';
+                    }
+                }, 300);
+            });
+        }
+
+        // Setup all conversion buttons
+        simulateConversion('convertWordBtn', 'wordProgress', 'wordProgressBar', 'wordStatus', 'wordResult');
+        simulateConversion('convertPdfBtn', 'pdfProgress', 'pdfProgressBar', 'pdfStatus', 'pdfResult');
+        simulateConversion('convertSpreadsheetBtn', 'spreadsheetProgress', 'spreadsheetProgressBar', 'spreadsheetStatus', 'spreadsheetResult');
+        simulateConversion('convertImageBtn', 'imageProgress', 'imageProgressBar', 'imageStatus', 'imageResult');
+        simulateConversion('convertSpecialImageBtn', 'specialImageProgress', 'specialImageProgressBar', 'specialImageStatus', 'specialImageResult');
+        simulateConversion('convertPdfToImageBtn', 'pdfToImageProgress', 'pdfToImageProgressBar', 'pdfToImageStatus', 'pdfToImageResult');
+        simulateConversion('convertAudioBtn', 'audioProgress', 'audioProgressBar', 'audioStatus', 'audioResult');
+        simulateConversion('convertSpeechBtn', 'speechProgress', 'speechProgressBar', 'speechStatus', 'speechResult');
+        simulateConversion('convertAudioEditBtn', 'audioEditProgress', 'audioEditProgressBar', 'audioEditStatus', 'audioEditResult');
+        simulateConversion('convertVideoBtn', 'videoProgress', 'videoProgressBar', 'videoStatus', 'videoResult');
+        simulateConversion('convertVideoAudioBtn', 'videoAudioProgress', 'videoAudioProgressBar', 'videoAudioStatus', 'videoAudioResult');
+        simulateConversion('convertVideoFramesBtn', 'videoFramesProgress', 'videoFramesProgressBar', 'videoFramesStatus', 'videoFramesResult');
+        simulateConversion('processArchiveBtn', 'archiveProgress', 'archiveProgressBar', 'archiveStatus', 'archiveResult');
+        simulateConversion('convertDataBtn', 'dataProgress', 'dataProgressBar', 'dataStatus', 'dataResult');
+        simulateConversion('convertEbookBtn', 'ebookProgress', 'ebookProgressBar', 'ebookStatus', 'ebookResult');
+
+        // Download buttons - for demo just show alert
+        document.querySelectorAll('[id$="DownloadBtn"]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('In a real implementation, this would download the converted file. This is a demo interface.');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
